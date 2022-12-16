@@ -1,0 +1,57 @@
+<%- include('header', title) %>
+
+<p class="my-2" id="msg"><%= message %></p>
+<form method="post" action="/db">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" 
+        id="name" name="name">
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" 
+        id="email" name="email">
+    </div>
+    <div class="mb-3">
+      <label for="age" class="form-label">Age</label>
+      <input type="number" class="form-control" 
+        id="age" name="age">
+    </div>
+    <button type="submit" class="btn btn-primary">送信</button>
+  </form>
+
+<table class="table">
+    <thead>
+        <tr>
+          <th>id</th><th>name</th>
+          <th>email</th><th>age</th>
+          <th>update</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (item of data) { %>
+        <tr>
+          <td><%=item.id %></td>
+          <td><%=item.name %></td>
+          <td><%=item.email %></td>
+          <td><%=item.age %></td>
+          <td><%=item.updatedAt %></td>
+          <th><a href="/db/edit/<%=item.id%>">編集</a></th>
+          <th><a href="#" onsubmit="false" onclick="doDelete(<%= item.id%>)">削除</a></th>
+        </tr>
+        <% } %>
+      </tbody>  
+</table>
+
+<form id="delform" method="post" action=""></form>
+<script>
+  function doDelete(id){
+    if(window.confirm('id='+id+"を削除しますか？")){
+      const form = document.querySelector('#delform');
+      form.action='/db/delete/'+id;
+      form.submit();
+    }
+  }
+</script>
+
+<%- include('footer') %>

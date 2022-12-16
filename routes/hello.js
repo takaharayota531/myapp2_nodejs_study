@@ -24,4 +24,15 @@ router.post('/', function(req, res, next) {
     res.render('hello', data);
 });
 
+router.post('/ajax', function(req, res, next) {
+    const result={
+        id:req.body.id,
+        pass:req.body.pass,
+        message:req.body.id+"bcdjchjsdbjfbvhbdhvbdv"
+    }
+    res.send(result);
+}
+
+);
+
 module.exports = router;
